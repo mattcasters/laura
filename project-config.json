@@ -1,0 +1,12 @@
+{
+  "metadataBaseFolder" : "${PROJECT_HOME}/metadata",
+  "unitTestsBasePath" : "${PROJECT_HOME}",
+  "dataSetsCsvFolder" : "${PROJECT_HOME}/datasets",
+  "enforcingExecutionInHome" : true,
+  "config" : {
+    "variables" : [ {
+      "name" : "INPUT_FOLDER",
+      "value" : "${PROJECT_HOME}/input"
+    } ]
+  }
+}

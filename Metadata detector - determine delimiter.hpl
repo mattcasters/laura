@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline>
+  <info>
+    <name>Detect delimiter</name>
+    <name_sync_with_filename>N</name_sync_with_filename>
+    <description/>
+    <extended_description/>
+    <pipeline_version/>
+    <pipeline_type>Normal</pipeline_type>
+    <pipeline_status>0</pipeline_status>
+    <parameters>
+      <parameter>
+        <name>DELIMITER_FILE</name>
+        <default_value>${PROJECT_HOME}/tmp/Customers-delimiter.xml</default_value>
+        <description>The detected delimiter file</description>
+      </parameter>
+      <parameter>
+        <name>FILENAME</name>
+        <default_value>${PROJECT_HOME}/input/customers.csv</default_value>
+        <description>The filename to analyze</description>
+      </parameter>
+    </parameters>
+    <capture_transform_performance>N</capture_transform_performance>
+    <transform_performance_capturing_delay>1000</transform_performance_capturing_delay>
+    <transform_performance_capturing_size_limit>100</transform_performance_capturing_size_limit>
+    <created_user>-</created_user>
+    <created_date>2013/09/23 20:59:04.248</created_date>
+    <modified_user>-</modified_user>
+    <modified_date>2013/09/23 20:59:04.248</modified_date>
+    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
+    <is_key_private>N</is_key_private>
+  </info>
+  <notepads>
+  </notepads>
+  <order>
+    <hop>
+      <from>Read file</from>
+      <to>Count most used delimiter</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Count most used delimiter</from>
+      <to>How many times is a delimiter selected?</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>How many times is a delimiter selected?</from>
+      <to>Sort rows by selection count desc</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort rows by selection count desc</from>
+      <to>nr</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>nr</from>
+      <to>nr==1</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>nr==1</from>
+      <to>Set Variable DELIMITER</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Set Variable DELIMITER</from>
+      <to>Delimiter XML file</to>
+      <enabled>Y</enabled>
+    </hop>
+  </order>
+  <transform>
+    <name>Count most used delimiter</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>
+      <jsScript>
+        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>
+// A simple algorithm: count every ,;/ and tab, see which one is used most often
+//
+var delimiters = [ ',', ';', '/', '\\t' ];
+var counters = new Array();
+var i;
+for (i=0;i&lt;line.length;i++) {
+  var c=line.charAt(i);
+  for (d=0;d&lt;delimiters.length;d++) {
+    if (c==delimiters[d]) {
+      if (counters[c]==null) {
+	    counters[c]=1;
+      } else {
+        counters[c]++;
+      }
+    }
+  }
+}
+var maxC=0;
+var max=0;
+for (i=0;i&lt;delimiters.length;i++) {
+  if (counters[delimiters[i]]&gt;max) {
+    maxC=i;
+    max=counters[delimiters[i]];
+  }
+}
+
+// Alert( "counters["+delimiters[maxC]+"] = "+counters[delimiters[maxC]] );
+
+var delimiter=""+delimiters[maxC];
+var count = counters[delimiters[maxC]];
+
+
+</jsScript_script>
+      </jsScript>
+    </jsScripts>
+    <fields>
+      <field>
+        <name>delimiter</name>
+        <rename>delimiter</rename>
+        <type>String</type>
+        <length>1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>count</name>
+        <rename>count</rename>
+        <type>Integer</type>
+        <length>5</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>304</xloc>
+      <yloc>80</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Delimiter XML file</name>
+    <type>XMLOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <encoding>UTF-8</encoding>
+    <name_space/>
+    <xml_main_element>file-scan-results</xml_main_element>
+    <xml_repeat_element>file-layout</xml_repeat_element>
+    <file>
+      <name>${DELIMITER_FILE}</name>
+      <extention/>
+      <servlet_output>N</servlet_output>
+      <do_not_open_newfile_init>N</do_not_open_newfile_init>
+      <split>N</split>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <SpecifyFormat>N</SpecifyFormat>
+      <omit_null_values>N</omit_null_values>
+      <date_time_format/>
+      <add_to_result_filenames>N</add_to_result_filenames>
+      <zipped>N</zipped>
+      <splitevery>0</splitevery>
+    </file>
+    <fields>
+      <field>
+        <content_type>Element</content_type>
+        <name>delimiter</name>
+        <element/>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>1091</xloc>
+      <yloc>284</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>How many times is a delimiter selected?</name>
+    <type>MemoryGroupBy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <give_back_row>N</give_back_row>
+    <group>
+      <field>
+        <name>delimiter</name>
+      </field>
+    </group>
+    <fields>
+      <field>
+        <aggregate>selections</aggregate>
+        <subject>line</subject>
+        <type>COUNT_ALL</type>
+        <valuefield/>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>560</xloc>
+      <yloc>80</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Read file</name>
+    <type>CSVInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <filename>${FILENAME}</filename>
+    <filename_field/>
+    <rownum_field/>
+    <include_filename>N</include_filename>
+    <separator>[@/=</separator>
+    <enclosure>"</enclosure>
+    <header>Y</header>
+    <buffer_size>50000</buffer_size>
+    <lazy_conversion>N</lazy_conversion>
+    <add_filename_result>N</add_filename_result>
+    <parallel>N</parallel>
+    <newline_possible>N</newline_possible>
+    <encoding/>
+    <fields>
+      <field>
+        <name>line</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>128</xloc>
+      <yloc>80</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Set Variable DELIMITER</name>
+    <type>SetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <field_name>delimiter</field_name>
+        <variable_name>DELIMITER</variable_name>
+        <variable_type>PARENT_WORKFLOW</variable_type>
+        <default_value/>
+      </field>
+    </fields>
+    <use_formatting>Y</use_formatting>
+    <attributes/>
+    <GUI>
+      <xloc>1088</xloc>
+      <yloc>176</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Sort rows by selection count desc</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>selections</name>
+        <ascending>N</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>2</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>560</xloc>
+      <yloc>176</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>nr</name>
+    <type>Sequence</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <valuename>nr</valuename>
+    <use_database>N</use_database>
+    <connection/>
+    <schema/>
+    <seqname>SEQ_</seqname>
+    <use_counter>Y</use_counter>
+    <counter_name/>
+    <start_at>1</start_at>
+    <increment_by>1</increment_by>
+    <max_value>999999999</max_value>
+    <attributes/>
+    <GUI>
+      <xloc>768</xloc>
+      <yloc>176</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>nr==1</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to/>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>nr</leftvalue>
+        <function>=</function>
+        <rightvalue/>
+        <value>
+          <name>constant</name>
+          <type>Integer</type>
+          <text>1</text>
+          <length>-1</length>
+          <precision>0</precision>
+          <isnull>N</isnull>
+          <mask>#;-#</mask>
+        </value>
+      </condition>
+    </compare>
+    <attributes/>
+    <GUI>
+      <xloc>928</xloc>
+      <yloc>176</yloc>
+    </GUI>
+  </transform>
+  <transform_error_handling>
+  </transform_error_handling>
+  <attributes>
+    <group>
+      <name>DataService</name>
+    </group>
+  </attributes>
+</pipeline>

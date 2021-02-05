@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline>
+  <info>
+    <name>load-all-nodes-files</name>
+    <name_sync_with_filename>Y</name_sync_with_filename>
+    <description/>
+    <extended_description/>
+    <pipeline_version/>
+    <pipeline_type>Normal</pipeline_type>
+    <parameters>
+    </parameters>
+    <capture_transform_performance>N</capture_transform_performance>
+    <transform_performance_capturing_delay>1000</transform_performance_capturing_delay>
+    <transform_performance_capturing_size_limit>100</transform_performance_capturing_size_limit>
+    <created_user>-</created_user>
+    <created_date>2021/02/05 13:45:24.743</created_date>
+    <modified_user>-</modified_user>
+    <modified_date>2021/02/05 13:45:24.743</modified_date>
+    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
+    <is_key_private>N</is_key_private>
+  </info>
+  <notepads>
+  </notepads>
+  <order>
+    <hop>
+      <from>nodeLabel, files, pkField</from>
+      <to>load-one-file.hwf</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Get CSV filenames</from>
+      <to>nodeLabel, files, pkField</to>
+      <enabled>Y</enabled>
+    </hop>
+  </order>
+  <transform>
+    <name>Get CSV filenames</name>
+    <type>GetFileNames</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <filter>
+      <filterfiletype>all_files</filterfiletype>
+    </filter>
+    <doNotFailIfNoFile>N</doNotFailIfNoFile>
+    <rownum>N</rownum>
+    <isaddresult>Y</isaddresult>
+    <filefield>N</filefield>
+    <rownum_field/>
+    <filename_Field/>
+    <wildcard_Field/>
+    <exclude_wildcard_Field/>
+    <dynamic_include_subfolders>N</dynamic_include_subfolders>
+    <limit>0</limit>
+    <file>
+      <name>${INPUT_FOLDER}/nodes/</name>
+      <filemask>.*\.csv$</filemask>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+      <name>${INPUT_FOLDER}/nodes/</name>
+      <filemask>.*\.CSV$</filemask>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
+    <attributes/>
+    <GUI>
+      <xloc>80</xloc>
+      <yloc>64</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>load-one-file.hwf</name>
+    <type>WorkflowExecutor</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <run_configuration>local</run_configuration>
+    <filename>${PROJECT_HOME}/load-one-file.hwf</filename>
+    <group_size>1</group_size>
+    <group_field/>
+    <group_time/>
+    <parameters>
+      <variablemapping>
+        <variable>DELIMITER_FILE</variable>
+        <field>delimiterFile</field>
+        <input/>
+      </variablemapping>
+      <variablemapping>
+        <variable>FILENAME</variable>
+        <field>filename</field>
+        <input/>
+      </variablemapping>
+      <variablemapping>
+        <variable>LAYOUT_FILE</variable>
+        <field>layoutFile</field>
+        <input/>
+      </variablemapping>
+      <variablemapping>
+        <variable>NODE_LABEL</variable>
+        <field>nodeLabel</field>
+        <input/>
+      </variablemapping>
+      <variablemapping>
+        <variable>PK_FIELD</variable>
+        <field>pkField</field>
+        <input/>
+      </variablemapping>
+      <inherit_all_vars>Y</inherit_all_vars>
+    </parameters>
+    <execution_result_target_transform/>
+    <execution_time_field>ExecutionTime</execution_time_field>
+    <execution_result_field>ExecutionResult</execution_result_field>
+    <execution_errors_field>ExecutionNrErrors</execution_errors_field>
+    <execution_lines_read_field>ExecutionLinesRead</execution_lines_read_field>
+    <execution_lines_written_field>ExecutionLinesWritten</execution_lines_written_field>
+    <execution_lines_input_field>ExecutionLinesInput</execution_lines_input_field>
+    <execution_lines_output_field>ExecutionLinesOutput</execution_lines_output_field>
+    <execution_lines_rejected_field>ExecutionLinesRejected</execution_lines_rejected_field>
+    <execution_lines_updated_field>ExecutionLinesUpdated</execution_lines_updated_field>
+    <execution_lines_deleted_field>ExecutionLinesDeleted</execution_lines_deleted_field>
+    <execution_files_retrieved_field>ExecutionFilesRetrieved</execution_files_retrieved_field>
+    <execution_exit_status_field>ExecutionExitStatus</execution_exit_status_field>
+    <execution_log_text_field>ExecutionLogText</execution_log_text_field>
+    <execution_log_channelid_field>ExecutionLogChannelId</execution_log_channelid_field>
+    <result_rows_target_transform/>
+    <result_files_target_transform/>
+    <result_files_file_name_field>FileName</result_files_file_name_field>
+    <attributes/>
+    <GUI>
+      <xloc>416</xloc>
+      <yloc>64</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>nodeLabel, files, pkField</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>
+      <jsScript>
+        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>
+var nodeLabel = replace(short_filename, ".csv", "");
+nodeLabel = replace(nodeLabel, ".CSV", "");
+
+var firstDashIndex = indexOf(nodeLabel, "-");
+
+if (firstDashIndex&lt;0) {
+  throw "A filename needs to include the name of the primary key field in the format &lt;LabelName>-&lt;PKField>.csv"
+}
+
+var pkField = substr(nodeLabel, firstDashIndex+1);
+nodeLabel = initCap(substr(nodeLabel, 0, firstDashIndex));
+
+var delimiterFile = getVariable("PROJECT_HOME", ".")+"/tmp/" + nodeLabel + "-delimiter.xml";
+var layoutFile = getVariable("PROJECT_HOME", ".")+"/tmp/" + nodeLabel + "-layout.xml";
+</jsScript_script>
+      </jsScript>
+    </jsScripts>
+    <fields>
+      <field>
+        <name>nodeLabel</name>
+        <rename>nodeLabel</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>delimiterFile</name>
+        <rename>delimiterFile</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>layoutFile</name>
+        <rename>layoutFile</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>pkField</name>
+        <rename>pkField</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>224</xloc>
+      <yloc>64</yloc>
+    </GUI>
+  </transform>
+  <transform_error_handling>
+  </transform_error_handling>
+  <attributes/>
+</pipeline>
