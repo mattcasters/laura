@@ -7,7 +7,13 @@
     <extended_description/>
     <pipeline_version/>
     <pipeline_type>Normal</pipeline_type>
+    <pipeline_status>0</pipeline_status>
     <parameters>
+      <parameter>
+        <name>INPUT_FOLDER</name>
+        <default_value>${PROJECT_HOME}/input/</default_value>
+        <description>The input folder</description>
+      </parameter>
     </parameters>
     <capture_transform_performance>N</capture_transform_performance>
     <transform_performance_capturing_delay>1000</transform_performance_capturing_delay>
