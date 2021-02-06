@@ -1,4 +1,4 @@
-Person,Movie
+Person.name,Movie.title
 Lilly Wachowski,The Matrix
 Lana Wachowski,The Matrix
 Lana Wachowski,The Matrix Reloaded

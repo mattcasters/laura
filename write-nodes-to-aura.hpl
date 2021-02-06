@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pipeline>
   <info>
-    <name>write-file-to-aura</name>
+    <name>write-nodes-to-aura</name>
     <name_sync_with_filename>Y</name_sync_with_filename>
     <description/>
     <extended_description/>
@@ -11,22 +11,22 @@
     <parameters>
       <parameter>
         <name>DELIMITER</name>
-        <default_value>;</default_value>
+        <default_value>,</default_value>
         <description>The delimiter</description>
       </parameter>
       <parameter>
         <name>FILENAME</name>
-        <default_value>${PROJECT_HOME}/input/customers.csv</default_value>
+        <default_value>${PROJECT_HOME}/input/nodes/Movie-title.csv</default_value>
         <description>The filename to analyze</description>
       </parameter>
       <parameter>
         <name>LAYOUT_FILE</name>
-        <default_value>${PROJECT_HOME}/tmp/Customers-layout.xml</default_value>
+        <default_value>${PROJECT_HOME}/tmp/Movie-layout.xml</default_value>
         <description>The resulting layout file</description>
       </parameter>
       <parameter>
         <name>NODE_LABEL</name>
-        <default_value>Customers</default_value>
+        <default_value>Movie</default_value>
         <description>The node label</description>
       </parameter>
     </parameters>
@@ -45,22 +45,22 @@
   <order>
     <hop>
       <from>layout.xml</from>
-      <to>write-file-to-aura-template.hpl</to>
+      <to>write-nodes-to-aura-template.hpl</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>NeoFields</from>
-      <to>write-file-to-aura-template.hpl</to>
+      <to>write-nodes-to-aura-template.hpl</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>filename</from>
-      <to>write-file-to-aura-template.hpl</to>
+      <to>write-nodes-to-aura-template.hpl</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>delimiter</from>
-      <to>write-file-to-aura-template.hpl</to>
+      <to>write-nodes-to-aura-template.hpl</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -73,7 +73,7 @@
     <name>NeoFields</name>
     <type>Dummy</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
@@ -82,8 +82,8 @@
     </partitioning>
     <attributes/>
     <GUI>
-      <xloc>160</xloc>
-      <yloc>368</yloc>
+      <xloc>256</xloc>
+      <yloc>320</yloc>
     </GUI>
   </transform>
   <transform>
@@ -352,7 +352,7 @@
     </GUI>
   </transform>
   <transform>
-    <name>write-file-to-aura-template.hpl</name>
+    <name>write-nodes-to-aura-template.hpl</name>
     <type>MetaInject</type>
     <description/>
     <distribute>Y</distribute>
@@ -362,8 +362,8 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>${PROJECT_HOME}/write-file-to-aura-template.hpl</filename>
-    <source_transform/>
+    <filename>${PROJECT_HOME}/write-nodes-to-aura-template.hpl</filename>
+    <source_transform>Neo4J Output</source_transform>
     <source_output_fields>    </source_output_fields>
     <target_file>${PROJECT_HOME}/tmp/${NODE_LABEL}-load.hpl</target_file>
     <no_execution>N</no_execution>

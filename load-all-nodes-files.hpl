@@ -29,13 +29,13 @@
   </notepads>
   <order>
     <hop>
-      <from>nodeLabel, files, pkField</from>
-      <to>load-one-file.hwf</to>
+      <from>nodeLabel, file names, pkField</from>
+      <to>load-one-nodes-file.hwf</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Get CSV filenames</from>
-      <to>nodeLabel, files, pkField</to>
+      <to>nodeLabel, file names, pkField</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -82,7 +82,7 @@
     </GUI>
   </transform>
   <transform>
-    <name>load-one-file.hwf</name>
+    <name>load-one-nodes-file.hwf</name>
     <type>WorkflowExecutor</type>
     <description/>
     <distribute>Y</distribute>
@@ -93,7 +93,7 @@
       <schema_name/>
     </partitioning>
     <run_configuration>local</run_configuration>
-    <filename>${PROJECT_HOME}/load-one-file.hwf</filename>
+    <filename>${PROJECT_HOME}/load-one-nodes-file.hwf</filename>
     <group_size>1</group_size>
     <group_field/>
     <group_time/>
@@ -150,7 +150,7 @@
     </GUI>
   </transform>
   <transform>
-    <name>nodeLabel, files, pkField</name>
+    <name>nodeLabel, file names, pkField</name>
     <type>ScriptValueMod</type>
     <description/>
     <distribute>Y</distribute>

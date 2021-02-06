@@ -23,13 +23,13 @@
   </notepads>
   <order>
     <hop>
-      <from>nodeLabel, files, pkField</from>
-      <to>load-one-file.hwf</to>
+      <from>labels, filenames</from>
+      <to>load-one-relationships-file.hwf</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Get CSV filenames</from>
-      <to>nodeLabel, files, pkField</to>
+      <to>labels, filenames</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -76,7 +76,7 @@
     </GUI>
   </transform>
   <transform>
-    <name>load-one-file.hwf</name>
+    <name>load-one-relationships-file.hwf</name>
     <type>WorkflowExecutor</type>
     <description/>
     <distribute>Y</distribute>
@@ -87,7 +87,7 @@
       <schema_name/>
     </partitioning>
     <run_configuration>local</run_configuration>
-    <filename>${PROJECT_HOME}/load-one-file.hwf</filename>
+    <filename>${PROJECT_HOME}/load-one-relationships-file.hwf</filename>
     <group_size>1</group_size>
     <group_field/>
     <group_time/>
@@ -108,13 +108,18 @@
         <input/>
       </variablemapping>
       <variablemapping>
-        <variable>NODE_LABEL</variable>
-        <field>nodeLabel</field>
+        <variable>REL_LABEL</variable>
+        <field>relLabel</field>
         <input/>
       </variablemapping>
       <variablemapping>
-        <variable>PK_FIELD</variable>
-        <field>pkField</field>
+        <variable>FROM_LABEL</variable>
+        <field>fromNodeLabel</field>
+        <input/>
+      </variablemapping>
+      <variablemapping>
+        <variable>TO_LABEL</variable>
+        <field>toNodeLabel</field>
         <input/>
       </variablemapping>
       <inherit_all_vars>Y</inherit_all_vars>
@@ -144,7 +149,7 @@
     </GUI>
   </transform>
   <transform>
-    <name>nodeLabel, files, pkField</name>
+    <name>labels, filenames</name>
     <type>ScriptValueMod</type>
     <description/>
     <distribute>Y</distribute>
@@ -159,28 +164,54 @@
       <jsScript>
         <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>
-var nodeLabel = replace(short_filename, ".csv", "");
-nodeLabel = replace(nodeLabel, ".CSV", "");
+        <jsScript_script>var fileFormatErrorMessage = "The name of a relationships file needs to be in the format : &lt;LABEL>-&lt;FromNodeLabel>-&lt;ToNodeLabel>.csv";
 
-var firstDashIndex = indexOf(nodeLabel, "-");
+var relLabel = replace(short_filename, ".csv", "");
+relLabel = replace(relLabel, ".CSV", "");
 
+var firstDashIndex = indexOf(relLabel, "-");
 if (firstDashIndex&lt;0) {
-  throw "A filename needs to include the name of the primary key field in the format &lt;LabelName>-&lt;PKField>.csv"
+  throw fileFormatErrorMessage;
 }
 
-var pkField = substr(nodeLabel, firstDashIndex+1);
-nodeLabel = initCap(substr(nodeLabel, 0, firstDashIndex));
+var nodeLabels = substr(relLabel, firstDashIndex+1);
+relLabel = initCap(substr(relLabel, 0, firstDashIndex));
 
-var delimiterFile = getVariable("PROJECT_HOME", ".")+"/tmp/" + nodeLabel + "-delimiter.xml";
-var layoutFile = getVariable("PROJECT_HOME", ".")+"/tmp/" + nodeLabel + "-layout.xml";
+// Split the node labels...
+//
+var secondDashIndex = indexOf(nodeLabels, "-");
+if (secondDashIndex&lt;0) {
+  throw fileFormatErrorMessage;
+}
+
+var fromNodeLabel = substr(nodeLabels, 0, secondDashIndex);
+var toNodeLabel = substr(nodeLabels, secondDashIndex+1);
+
+var delimiterFile = getVariable("PROJECT_HOME", ".")+"/tmp/" + relLabel + "-delimiter.xml";
+var layoutFile = getVariable("PROJECT_HOME", ".")+"/tmp/" + relLabel + "-layout.xml";
 </jsScript_script>
       </jsScript>
     </jsScripts>
     <fields>
       <field>
-        <name>nodeLabel</name>
-        <rename>nodeLabel</rename>
+        <name>relLabel</name>
+        <rename>relLabel</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>fromNodeLabel</name>
+        <rename>fromNodeLabel</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>toNodeLabel</name>
+        <rename>toNodeLabel</rename>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
@@ -202,18 +233,10 @@ var layoutFile = getVariable("PROJECT_HOME", ".")+"/tmp/" + nodeLabel + "-layout
         <precision>-1</precision>
         <replace>N</replace>
       </field>
-      <field>
-        <name>pkField</name>
-        <rename>pkField</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>
     </fields>
     <attributes/>
     <GUI>
-      <xloc>224</xloc>
+      <xloc>256</xloc>
       <yloc>64</yloc>
     </GUI>
   </transform>

@@ -1,20 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workflow>
-  <name>laura</name>
+  <name>load-one-nodes-file</name>
   <name_sync_with_filename>Y</name_sync_with_filename>
   <description/>
   <extended_description/>
   <workflow_version/>
   <workflow_status>0</workflow_status>
   <created_user>-</created_user>
-  <created_date>2021/02/05 22:06:49.249</created_date>
+  <created_date>2021/02/05 13:49:10.758</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2021/02/05 22:06:49.249</modified_date>
+  <modified_date>2021/02/05 13:49:10.758</modified_date>
   <parameters>
     <parameter>
-      <name>INPUT_FOLDER</name>
-      <default_value>${PROJECT_HOME}/input/</default_value>
-      <description>The input folder</description>
+      <name>DELIMITER_FILE</name>
+      <default_value>${PROJECT_HOME}/tmp/Movie-delimiter.xml</default_value>
+      <description>The derived delimiter</description>
+    </parameter>
+    <parameter>
+      <name>FILENAME</name>
+      <default_value>${PROJECT_HOME}/input/nodes/Movie-title.csv</default_value>
+      <description>The input file</description>
+    </parameter>
+    <parameter>
+      <name>LAYOUT_FILE</name>
+      <default_value>${PROJECT_HOME}/tmp/Movie-layout.xml</default_value>
+      <description>The derived file layout</description>
+    </parameter>
+    <parameter>
+      <name>NODE_LABEL</name>
+      <default_value>Movie</default_value>
+      <description>The node label</description>
+    </parameter>
+    <parameter>
+      <name>PK_FIELD</name>
+      <default_value>title</default_value>
+      <description>The primary key field</description>
     </parameter>
   </parameters>
   <actions>
@@ -32,16 +52,16 @@
       <weekDay>1</weekDay>
       <DayOfMonth>1</DayOfMonth>
       <parallel>N</parallel>
-      <xloc>128</xloc>
-      <yloc>96</yloc>
+      <xloc>80</xloc>
+      <yloc>80</yloc>
       <attributes_hac/>
     </action>
     <action>
-      <name>load-all-nodes-files.hpl</name>
+      <name>Metadata detector - determine delimiter.hpl</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/load-all-nodes-files.hpl</filename>
+      <filename>${PROJECT_HOME}/Metadata detector - determine delimiter.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -61,16 +81,16 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>304</xloc>
-      <yloc>96</yloc>
+      <xloc>464</xloc>
+      <yloc>80</yloc>
       <attributes_hac/>
     </action>
     <action>
-      <name>load-all-relationship-files.hpl</name>
+      <name>Metadata detector - determine fields.hpl</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/load-all-relationship-files.hpl</filename>
+      <filename>${PROJECT_HOME}/Metadata detector - determine fields.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -90,29 +110,29 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>480</xloc>
-      <yloc>96</yloc>
+      <xloc>768</xloc>
+      <yloc>80</yloc>
       <attributes_hac/>
     </action>
     <action>
-      <name>Log completed</name>
+      <name>Write to log</name>
       <description/>
       <type>WRITE_TO_LOG</type>
       <attributes/>
-      <logmessage>Completed</logmessage>
+      <logmessage>nodes file: ${FILENAME}</logmessage>
       <loglevel>Minimal</loglevel>
-      <logsubject>Success</logsubject>
+      <logsubject>Processing</logsubject>
       <parallel>N</parallel>
-      <xloc>816</xloc>
-      <yloc>96</yloc>
+      <xloc>240</xloc>
+      <yloc>80</yloc>
       <attributes_hac/>
     </action>
     <action>
-      <name>log-statistics.hpl</name>
+      <name>write-nodes-to-aura.hpl</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/log-statistics.hpl</filename>
+      <filename>${PROJECT_HOME}/write-nodes-to-aura.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -132,39 +152,75 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>656</xloc>
-      <yloc>96</yloc>
+      <xloc>768</xloc>
+      <yloc>192</yloc>
+      <attributes_hac/>
+    </action>
+    <action>
+      <name>create-pk-index</name>
+      <description/>
+      <type>PIPELINE</type>
+      <attributes/>
+      <filename>${PROJECT_HOME}/create-pk-index.hpl</filename>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <run_configuration>local</run_configuration>
+      <parameters>
+        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>
+      <parallel>N</parallel>
+      <xloc>464</xloc>
+      <yloc>192</yloc>
       <attributes_hac/>
     </action>
   </actions>
   <hops>
     <hop>
-      <from>load-all-nodes-files.hpl</from>
-      <to>load-all-relationship-files.hpl</to>
+      <from>Metadata detector - determine delimiter.hpl</from>
+      <to>Metadata detector - determine fields.hpl</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
       <from>Start</from>
-      <to>load-all-nodes-files.hpl</to>
+      <to>Write to log</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>Y</unconditional>
     </hop>
     <hop>
-      <from>load-all-relationship-files.hpl</from>
-      <to>log-statistics.hpl</to>
+      <from>Write to log</from>
+      <to>Metadata detector - determine delimiter.hpl</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
-      <unconditional>Y</unconditional>
+      <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>log-statistics.hpl</from>
-      <to>Log completed</to>
+      <from>Metadata detector - determine fields.hpl</from>
+      <to>create-pk-index</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
-      <unconditional>Y</unconditional>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>create-pk-index</from>
+      <to>write-nodes-to-aura.hpl</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
     </hop>
   </hops>
   <notepads>
