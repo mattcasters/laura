@@ -47,11 +47,35 @@ MATCH(m:Movie) DETACH DELETE m
       <yloc>80</yloc>
       <attributes_hac/>
     </action>
+    <action>
+      <name>drop indexes</name>
+      <description/>
+      <type>NEO4J_CYPHER_SCRIPT</type>
+      <attributes/>
+      <connection>Aura</connection>
+      <script>DROP INDEX on :Person(name)
+;
+DROP index on :Movie(title)
+;
+</script>
+      <replace_variables>N</replace_variables>
+      <parallel>N</parallel>
+      <xloc>400</xloc>
+      <yloc>80</yloc>
+      <attributes_hac/>
+    </action>
   </actions>
   <hops>
     <hop>
       <from>Start</from>
       <to>Cleanup</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>Cleanup</from>
+      <to>drop indexes</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>Y</unconditional>
