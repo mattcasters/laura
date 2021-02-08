@@ -1,12 +1,16 @@
 # laura
 
-Loader for Aura using Apache Hop
+Loader for Neo4j Aura using Apache Hop
 
-This repository contains an Apache Hop project that can be used to load CSV files into Aura
+This project is located at : 
+
+  https://github.com/mattcasters/laura
+
+This repository contains an Apache Hop project that can be used to load CSV files into a Neo4j Aura instance.
 
 # Apache Hop & Neo4j
 
-To run Laura you need a recent build of Hop.  You can find a recent snapshot download of Apache Hop over here:
+To run Laura you need a recent build of Hop.  You can find a recent *snapshot* download of Apache Hop over here:
 
   http://hop.apache.org/download
 
