@@ -8,7 +8,7 @@ This repository contains an Apache Hop project that can be used to load CSV file
 
 To run Laura you need a recent build of Hop.  You can find a recent snapshot download of Apache Hop over here:
 
-  hop.apache.org/download
+  http://hop.apache.org/download
 
 You also need the latest version of the Neo4j plugins for Hop:
 
@@ -18,7 +18,8 @@ You also need the latest version of the Neo4j plugins for Hop:
 
 As a standalone project Laura can be run simply by running the script:
 
-  run-laura.sh
+  ```sh run-laura.sh``` (for OSX and Linux variants)
+  ```run-laura.bat``` (TODO: for windows variants)
 
 As an argument you can specify the location of where you unzipped Hop with the Neo4j plugins folder hop-neo4j in the plugins/ folder somewhere.
 
