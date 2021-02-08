@@ -146,6 +146,41 @@
     </GUI>
   </transform>
   <transform>
+    <name>count</name>
+    <type>GroupBy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <all_rows>N</all_rows>
+    <ignore_aggregate>N</ignore_aggregate>
+    <field_ignore/>
+    <directory>${java.io.tmpdir}</directory>
+    <prefix>grp</prefix>
+    <add_linenr>N</add_linenr>
+    <linenr_fieldname/>
+    <give_back_row>Y</give_back_row>
+    <group>
+      </group>
+    <fields>
+      <field>
+        <aggregate>count</aggregate>
+        <subject>__rownr__</subject>
+        <type>COUNT_ALL</type>
+        <valuefield/>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>544</xloc>
+      <yloc>144</yloc>
+    </GUI>
+  </transform>
+  <transform>
     <name>tmp/NodeLabel-count.csv</name>
     <type>TextFileOutput</type>
     <description/>
@@ -206,62 +241,11 @@
       <yloc>144</yloc>
     </GUI>
   </transform>
-  <transform>
-    <name>count</name>
-    <type>GroupBy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <all_rows>N</all_rows>
-    <ignore_aggregate>N</ignore_aggregate>
-    <field_ignore/>
-    <directory>${java.io.tmpdir}</directory>
-    <prefix>grp</prefix>
-    <add_linenr>N</add_linenr>
-    <linenr_fieldname/>
-    <give_back_row>Y</give_back_row>
-    <group>
-      </group>
-    <fields>
-      <field>
-        <aggregate>count</aggregate>
-        <subject>__rownr__</subject>
-        <type>COUNT_ALL</type>
-        <valuefield/>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>544</xloc>
-      <yloc>144</yloc>
-    </GUI>
-  </transform>
   <transform_error_handling>
   </transform_error_handling>
   <attributes>
     <group>
       <name>debug_plugin</name>
-      <attribute>
-        <key>OUTPUT : start_row</key>
-        <value>-1</value>
-      </attribute>
-      <attribute>
-        <key>OUTPUT : log_level</key>
-        <value>Debug</value>
-      </attribute>
-      <attribute>
-        <key>OUTPUT : end_row</key>
-        <value>-1</value>
-      </attribute>
-      <attribute>
-        <key>OUTPUT : condition</key>
-        <value>PGNvbmRpdGlvbj4KIDxuZWdhdGVkPk48L25lZ2F0ZWQ+CiA8bGVmdHZhbHVlLz4KIDxmdW5jdGlvbj49PC9mdW5jdGlvbj4KIDxyaWdodHZhbHVlLz4KIDwvY29uZGl0aW9uPgo=</value>
-      </attribute>
     </group>
   </attributes>
 </pipeline>

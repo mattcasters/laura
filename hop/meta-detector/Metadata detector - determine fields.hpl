@@ -316,7 +316,7 @@ enclosures in header</note>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>${PROJECT_HOME}/Metadata detector - Parser.hpl</filename>
+    <filename>${PROJECT_HOME}/hop/meta-detector/Metadata detector - Parser.hpl</filename>
     <source_transform>select result fields</source_transform>
     <source_output_fields>    </source_output_fields>
     <target_file/>

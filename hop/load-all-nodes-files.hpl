@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pipeline>
   <info>
-    <name>load-all-relationship-files</name>
+    <name>load-all-nodes-files</name>
     <name_sync_with_filename>Y</name_sync_with_filename>
     <description/>
     <extended_description/>
     <pipeline_version/>
     <pipeline_type>Normal</pipeline_type>
+    <pipeline_status>0</pipeline_status>
     <parameters>
+      <parameter>
+        <name>INPUT_FOLDER</name>
+        <default_value>${PROJECT_HOME}/input/</default_value>
+        <description>The input folder</description>
+      </parameter>
     </parameters>
     <capture_transform_performance>N</capture_transform_performance>
     <transform_performance_capturing_delay>1000</transform_performance_capturing_delay>
@@ -23,13 +29,13 @@
   </notepads>
   <order>
     <hop>
-      <from>labels, filenames</from>
-      <to>load-one-relationships-file.hwf</to>
+      <from>nodeLabel, file names, pkField</from>
+      <to>load-one-nodes-file.hwf</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Get CSV filenames</from>
-      <to>labels, filenames</to>
+      <to>nodeLabel, file names, pkField</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -58,12 +64,12 @@
     <dynamic_include_subfolders>N</dynamic_include_subfolders>
     <limit>0</limit>
     <file>
-      <name>${INPUT_FOLDER}/relationships/</name>
+      <name>${INPUT_FOLDER}/nodes/</name>
       <filemask>.*\.csv$</filemask>
       <exclude_filemask/>
       <file_required>N</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>${INPUT_FOLDER}/relationships/</name>
+      <name>${INPUT_FOLDER}/nodes/</name>
       <filemask>.*\.CSV$</filemask>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -76,7 +82,7 @@
     </GUI>
   </transform>
   <transform>
-    <name>load-one-relationships-file.hwf</name>
+    <name>load-one-nodes-file.hwf</name>
     <type>WorkflowExecutor</type>
     <description/>
     <distribute>Y</distribute>
@@ -87,7 +93,7 @@
       <schema_name/>
     </partitioning>
     <run_configuration>local</run_configuration>
-    <filename>${PROJECT_HOME}/load-one-relationships-file.hwf</filename>
+    <filename>${PROJECT_HOME}/hop/load-one-nodes-file.hwf</filename>
     <group_size>1</group_size>
     <group_field/>
     <group_time/>
@@ -108,18 +114,13 @@
         <input/>
       </variablemapping>
       <variablemapping>
-        <variable>REL_LABEL</variable>
-        <field>relLabel</field>
+        <variable>NODE_LABEL</variable>
+        <field>nodeLabel</field>
         <input/>
       </variablemapping>
       <variablemapping>
-        <variable>FROM_LABEL</variable>
-        <field>fromNodeLabel</field>
-        <input/>
-      </variablemapping>
-      <variablemapping>
-        <variable>TO_LABEL</variable>
-        <field>toNodeLabel</field>
+        <variable>PK_FIELD</variable>
+        <field>pkField</field>
         <input/>
       </variablemapping>
       <inherit_all_vars>Y</inherit_all_vars>
@@ -149,7 +150,7 @@
     </GUI>
   </transform>
   <transform>
-    <name>labels, filenames</name>
+    <name>nodeLabel, file names, pkField</name>
     <type>ScriptValueMod</type>
     <description/>
     <distribute>Y</distribute>
@@ -164,54 +165,28 @@
       <jsScript>
         <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var fileFormatErrorMessage = "The name of a relationships file needs to be in the format : &lt;LABEL>-&lt;FromNodeLabel>-&lt;ToNodeLabel>.csv";
+        <jsScript_script>
+var nodeLabel = replace(short_filename, ".csv", "");
+nodeLabel = replace(nodeLabel, ".CSV", "");
 
-var relLabel = replace(short_filename, ".csv", "");
-relLabel = replace(relLabel, ".CSV", "");
+var firstDashIndex = indexOf(nodeLabel, "-");
 
-var firstDashIndex = indexOf(relLabel, "-");
 if (firstDashIndex&lt;0) {
-  throw fileFormatErrorMessage;
+  throw "A filename needs to include the name of the primary key field in the format &lt;LabelName>-&lt;PKField>.csv"
 }
 
-var nodeLabels = substr(relLabel, firstDashIndex+1);
-relLabel = initCap(substr(relLabel, 0, firstDashIndex));
+var pkField = substr(nodeLabel, firstDashIndex+1);
+nodeLabel = initCap(substr(nodeLabel, 0, firstDashIndex));
 
-// Split the node labels...
-//
-var secondDashIndex = indexOf(nodeLabels, "-");
-if (secondDashIndex&lt;0) {
-  throw fileFormatErrorMessage;
-}
-
-var fromNodeLabel = substr(nodeLabels, 0, secondDashIndex);
-var toNodeLabel = substr(nodeLabels, secondDashIndex+1);
-
-var delimiterFile = getVariable("PROJECT_HOME", ".")+"/tmp/" + relLabel + "-delimiter.xml";
-var layoutFile = getVariable("PROJECT_HOME", ".")+"/tmp/" + relLabel + "-layout.xml";
+var delimiterFile = getVariable("PROJECT_HOME", ".")+"/tmp/" + nodeLabel + "-delimiter.xml";
+var layoutFile = getVariable("PROJECT_HOME", ".")+"/tmp/" + nodeLabel + "-layout.xml";
 </jsScript_script>
       </jsScript>
     </jsScripts>
     <fields>
       <field>
-        <name>relLabel</name>
-        <rename>relLabel</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>
-      <field>
-        <name>fromNodeLabel</name>
-        <rename>fromNodeLabel</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>
-      <field>
-        <name>toNodeLabel</name>
-        <rename>toNodeLabel</rename>
+        <name>nodeLabel</name>
+        <rename>nodeLabel</rename>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
@@ -233,10 +208,18 @@ var layoutFile = getVariable("PROJECT_HOME", ".")+"/tmp/" + relLabel + "-layout.
         <precision>-1</precision>
         <replace>N</replace>
       </field>
+      <field>
+        <name>pkField</name>
+        <rename>pkField</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
     </fields>
     <attributes/>
     <GUI>
-      <xloc>256</xloc>
+      <xloc>224</xloc>
       <yloc>64</yloc>
     </GUI>
   </transform>

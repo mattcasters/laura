@@ -362,7 +362,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>${PROJECT_HOME}/write-nodes-to-aura-template.hpl</filename>
+    <filename>${PROJECT_HOME}/hop/write-nodes-to-aura-template.hpl</filename>
     <source_transform>Neo4J Output</source_transform>
     <source_output_fields>    </source_output_fields>
     <target_file>${PROJECT_HOME}/tmp/${NODE_LABEL}-load.hpl</target_file>

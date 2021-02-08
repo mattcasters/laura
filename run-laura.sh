@@ -49,5 +49,5 @@ export HOP_CONFIG_FOLDER HOP_AUDIT_FOLDER
 
 cd ${HOP_LOCATION}
 
-sh hop-run.sh -e laura -f laura.hwf -r local -l Minimal
+sh hop-run.sh -e laura -f 'hop/laura.hwf' -r local -l Minimal
 

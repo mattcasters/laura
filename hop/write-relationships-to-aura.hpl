@@ -694,7 +694,7 @@ if (name.startsWith(toPrefix)) {
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>${PROJECT_HOME}/write-relationships-to-aura-template.hpl</filename>
+    <filename>${PROJECT_HOME}/hop/write-relationships-to-aura-template.hpl</filename>
     <source_transform/>
     <source_output_fields>    </source_output_fields>
     <target_file>${PROJECT_HOME}/tmp/${FROM_LABEL}-${TO_LABEL}-load.hpl</target_file>
