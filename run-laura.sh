@@ -41,9 +41,14 @@ then
   exit 2;
 fi
 
+
 PWD=$(pwd)
 HOP_CONFIG_FOLDER=${PWD}/config
 HOP_AUDIT_FOLDER=${PWD}/audit
+
+# Create the tmp folder
+#
+mkdir -p ${PWD}/tmp
 
 export HOP_CONFIG_FOLDER HOP_AUDIT_FOLDER
 
