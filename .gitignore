@@ -1,0 +1,6 @@
+
+laura-conf.json
+audit/*
+**/*.old
+tmp/*
+

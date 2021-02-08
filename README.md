@@ -1,47 +1,46 @@
 # laura
+
 Loader for Aura using Apache Hop
 
 This repository contains an Apache Hop project that can be used to load CSV files into Aura
 
-# Setup
+# Apache Hop & Neo4j
 
-Add a project to the Hop configuration pointing to this folder.
-For example:
+To run Laura you need a recent build of Hop.  You can find a recent snapshot download of Apache Hop over here:
 
-$ sh hop-conf.sh -pc -p laura -ph /path/to/this/folder
+  hop.apache.org/download
 
-Now you can create an environment to contain the hostname, username and password of your Aura instance:
+You also need the latest version of the Neo4j plugins for Hop:
 
-$ sh hop-conf.sh -ec -e laura -eg /path/to/laura-conf.json
+  https://github.com/mattcasters/hop-neo4j/releases/latest
 
-This creates an empty file called laura-conf.json in which we can store the configuration variables:
+# Running Laura
 
-$ sh hop-conf.sh -cfg /path/to/laura-conf.json -cfv \
-  AURA_HOSTNAME=someweirdhostname.neo4j.io,AURA_USERNAME=neo4j,AURA_PASSWORD=SomePassword
+As a standalone project Laura can be run simply by running the script:
 
-# Workflow to run
+  run-laura.sh
 
-The main workflow to run is:
+As an argument you can specify the location of where you unzipped Hop with the Neo4j plugins folder hop-neo4j in the plugins/ folder somewhere.
 
-  laura.hwf
+Please make sure to create a laura-conf.json file.  The easiest way to do this is by copying laura-conf.json.sample.
+Then modify the file to match your situation: The Aura hostname and password as well as the location of your files.
 
-If you configured the environment you can run it as:
+# The input folder
 
-$ sh hop-run.sh -e laura -f laura.hwf -r local -p INPUT_FOLDER=/input/folder/path
+The input folder contains 2 sub-folders: nodes/ and relationships/.
+These will contain one file per (you guessed it) node label and relationship label.
 
-# Parameters
+```${INPUT_FOLDER}/nodes``` :
 
-INPUT_FOLDER : points to the input folder containing the files you want to load
-
-# Files
-
-${INPUT_FOLDER}/nodes :
-
-* one file per label, filename is <Label>-<property that is unique constraint>.csv
+* one file per label, filename is ```<Label>-<property that is unique constraint>.csv```
 * all the properties in the file either have a value or no value
 
-${INPUT_FOLDER}/relationships :
+```${INPUT_FOLDER}/relationships``` :
 
-* one file per relationshiptype, filename is <RELATIONSHIPTYPE>-<StartNodeLabel>-<EndNodeLabel>.csv
-TODO
+* one file per relationshiptype, filename is ```<RELATIONSHIPTYPE>-<StartNodeLabel>-<EndNodeLabel>.csv```
+* The header in the file should be in the format: 
+  - ```<NodeLabel>.<KeyField>``` if it's a key field
+  - A field name without a dot (.) which will become a relationship property
+
+
 

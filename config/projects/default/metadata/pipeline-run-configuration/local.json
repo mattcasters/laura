@@ -11,7 +11,7 @@
       "gather_metrics": false
     }
   },
-  "configurationVariables": [],
   "name": "local",
+  "configurationVariables": [],
   "description": ""
 }

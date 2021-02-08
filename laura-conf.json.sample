@@ -1,0 +1,15 @@
+{
+  "variables" : [ {
+    "name" : "AURA_HOSTNAME",
+    "value" : "<aura-hostname>.neo4j.io",
+    "description" : "The Aura hostname"
+  }, {
+    "name" : "AURA_USERNAME",
+    "value" : "neo4j",
+    "description" : "The Aura username"
+  }, {
+    "name" : "AURA_PASSWORD",
+    "value" : "<your-generated-aura-password>",
+    "description" : "The Aura password "
+  } ]
+}

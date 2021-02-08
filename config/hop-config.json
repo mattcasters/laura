@@ -1,0 +1,24 @@
+{
+  "LocaleDefault" : "en_BE",
+  "projectsConfig" : {
+    "enabled" : true,
+    "projectMandatory" : true,
+    "defaultProject" : "default",
+    "standardParentProject" : "default",
+    "projectConfigurations" : [ {
+      "projectName" : "default",
+      "projectHome" : "config/projects/default",
+      "configFilename" : "project-config.json"
+    }, {
+      "projectName" : "laura",
+      "projectHome" : "${HOP_CONFIG_FOLDER}/..",
+      "configFilename" : "project-config.json"
+    } ],
+    "lifecycleEnvironments" : [ {
+      "name" : "laura",
+      "purpose" : "Self Contained Execution",
+      "projectName" : "laura",
+      "configurationFiles" : [ "${PROJECT_HOME}/laura-conf.json" ]
+    } ]
+  }
+}
