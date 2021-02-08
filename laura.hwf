@@ -61,8 +61,8 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>304</xloc>
-      <yloc>96</yloc>
+      <xloc>272</xloc>
+      <yloc>208</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -90,8 +90,8 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>480</xloc>
-      <yloc>96</yloc>
+      <xloc>448</xloc>
+      <yloc>208</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -103,8 +103,8 @@
       <loglevel>Minimal</loglevel>
       <logsubject>Success</logsubject>
       <parallel>N</parallel>
-      <xloc>816</xloc>
-      <yloc>96</yloc>
+      <xloc>784</xloc>
+      <yloc>208</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -132,7 +132,35 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>656</xloc>
+      <xloc>624</xloc>
+      <yloc>208</yloc>
+      <attributes_hac/>
+    </action>
+    <action>
+      <name>check server</name>
+      <description/>
+      <type>PING</type>
+      <attributes/>
+      <hostname>${AURA_HOSTNAME}</hostname>
+      <nbr_packets>2</nbr_packets>
+      <nbrpaquets>2</nbrpaquets>
+      <timeout>3000</timeout>
+      <pingtype>classicPing</pingtype>
+      <parallel>N</parallel>
+      <xloc>272</xloc>
+      <yloc>96</yloc>
+      <attributes_hac/>
+    </action>
+    <action>
+      <name>Check Aura</name>
+      <description/>
+      <type>NEO4J_CHECK_CONNECTIONS</type>
+      <attributes/>
+      <connections>
+        <connection>Aura</connection>
+      </connections>
+      <parallel>N</parallel>
+      <xloc>400</xloc>
       <yloc>96</yloc>
       <attributes_hac/>
     </action>
@@ -144,13 +172,6 @@
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Start</from>
-      <to>load-all-nodes-files.hpl</to>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>Y</unconditional>
     </hop>
     <hop>
       <from>load-all-relationship-files.hpl</from>
@@ -165,6 +186,27 @@
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>Start</from>
+      <to>check server</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>check server</from>
+      <to>Check Aura</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Check Aura</from>
+      <to>load-all-nodes-files.hpl</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
     </hop>
   </hops>
   <notepads>

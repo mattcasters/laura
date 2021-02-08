@@ -1,0 +1,31 @@
+{
+  "variables" : [ {
+    "name" : "AURA_HOSTNAME",
+    "value" : "localhost",
+    "description" : "The Aura hostname"
+  }, {
+    "name" : "AURA_USERNAME",
+    "value" : "neo4j",
+    "description" : "The Aura username"
+  }, {
+    "name" : "AURA_PASSWORD",
+    "value" : "<your-password>",
+    "description" : "The Aura password "
+  }, {
+    "name" : "AURA_ROUTING",
+    "value" : "false",
+    "description" : "Aura : use routing?"
+  }, {
+    "name" : "AURA_PROTOCOL",
+    "value" : "",
+    "description" : "The routing protocol to use"
+  }, {
+    "name" : "AURA_ENCRYPTION",
+    "value" : "false",
+    "description" : "Encrypt the connection to Aura"
+  }, {
+    "name" : "INPUT_FOLDER",
+    "value" : "${PROJECT_HOME}/input/",
+    "description" : "The input folder containing the data in nodes/ and relationships/ subfolders"
+  } ]
+}

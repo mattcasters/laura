@@ -12,6 +12,18 @@
     "value" : "<your-generated-aura-password>",
     "description" : "The Aura password "
   }, {
+    "name" : "AURA_ROUTING",
+    "value" : "true",
+    "description" : "Aura : use routing?"
+  }, {
+    "name" : "AURA_PROTOCOL",
+    "value" : "neo4j+s",
+    "description" : "The routing protocol to use"
+  }, {
+    "name" : "AURA_ENCRYPTION",
+    "value" : "true",
+    "description" : "Encrypt the connection to Aura"
+  }, {
     "name" : "INPUT_FOLDER",
     "value" : "${PROJECT_HOME}/input/",
     "description" : "The input folder containing the data in nodes/ and relationships/ subfolders"
