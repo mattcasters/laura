@@ -35,20 +35,19 @@ if not exist "laura-conf.json" (
   exit /b 2;
 )
 
-set HOP_OPTIONS=-Xmx256m
-set HOP_CONFIG_FOLDER=%CD%\config
-set HOP_AUDIT_FOLDER=%CD%\audit
+set HOP_OPTIONS=-Xmx512m
+set HOP_CONFIG_FOLDER="%CD%\config"
+set HOP_AUDIT_FOLDER="%CD%\audit"
 
-if not exist %CD%\tmp\ (
-  mkdir %CD%\tmp
+if not exist "%CD%\tmp\" (
+  mkdir "%CD%\tmp"
 )
 
-echo LAURA_DIR=%LAURA_DIR%
+echo LAURA_DIR="%LAURA_DIR%"
 
-CD /D %HOP_LOCATION%
+CD /D "%HOP_LOCATION%"
 
 START /B hop-run.bat -e laura -f hop\laura.hwf -r local -l Minimal
 
-echo LAURA_DIR=%LAURA_DIR%
-CD /D %LAURA_DIR%
+CD /D "%LAURA_DIR%"
 
