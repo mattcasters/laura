@@ -43,6 +43,7 @@ fi
 
 
 PWD=$(pwd)
+HOP_OPTIONS=-Xmx512m
 HOP_CONFIG_FOLDER=${PWD}/config
 HOP_AUDIT_FOLDER=${PWD}/audit
 
