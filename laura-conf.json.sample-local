@@ -1,7 +1,7 @@
 {
   "variables" : [ {
     "name" : "INPUT_FOLDER",
-    "value" : "input/",
+    "value" : "${PROJECT_HOME}/input/",
     "description" : "This folder is contains the input data in 2 sub-folders: nodes/ and relationships/"
   }, {
     "name" : "AURA_HOSTNAME",
