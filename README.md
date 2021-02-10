@@ -22,9 +22,9 @@ You also need the latest (>=6.0.13) version of the Neo4j plugins for Hop:
 
 As a standalone project Laura can be run simply by running the script:
 
-  ```sh run-laura.sh``` : for OSX and Linux variants
+  ```sh run-laura.sh <path-to-hop>``` : for OSX and Linux variants
 
-  ```run-laura.bat``` : for windows variants
+  ```run-laura.bat <path-to-hop>``` : for windows variants
 
 As an argument you can specify the location of where you unzipped Hop with the Neo4j plugins folder hop-neo4j in the plugins/ folder somewhere.
 You can also set environment variable ```HOP_LOCATION``` to where your Hop distribution lives.
