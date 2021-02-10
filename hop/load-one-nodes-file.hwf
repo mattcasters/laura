@@ -152,7 +152,7 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>688</xloc>
+      <xloc>784</xloc>
       <yloc>432</yloc>
       <attributes_hac/>
     </action>
@@ -181,7 +181,7 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>464</xloc>
+      <xloc>608</xloc>
       <yloc>432</yloc>
       <attributes_hac/>
     </action>
@@ -220,6 +220,28 @@
       <parallel>N</parallel>
       <xloc>464</xloc>
       <yloc>304</yloc>
+      <attributes_hac/>
+    </action>
+    <action>
+      <name>Only layout?</name>
+      <description/>
+      <type>SIMPLE_EVAL</type>
+      <attributes/>
+      <valuetype>variable</valuetype>
+      <fieldname/>
+      <variablename>ONLY_LAYOUT</variablename>
+      <fieldtype>string</fieldtype>
+      <mask/>
+      <comparevalue>Y</comparevalue>
+      <minvalue/>
+      <maxvalue/>
+      <successcondition>equal</successcondition>
+      <successnumbercondition>equal</successnumbercondition>
+      <successbooleancondition>false</successbooleancondition>
+      <successwhenvarset>N</successwhenvarset>
+      <parallel>N</parallel>
+      <xloc>464</xloc>
+      <yloc>432</yloc>
       <attributes_hac/>
     </action>
   </actions>
@@ -267,13 +289,6 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Log layout file</from>
-      <to>create-pk-index</to>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>.js layout file?</from>
       <to>Using layout file</to>
       <enabled>Y</enabled>
@@ -281,10 +296,24 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Using layout file</from>
-      <to>create-pk-index</to>
+      <from>Log layout file</from>
+      <to>Only layout?</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Using layout file</from>
+      <to>Only layout?</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Only layout?</from>
+      <to>create-pk-index</to>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
   </hops>

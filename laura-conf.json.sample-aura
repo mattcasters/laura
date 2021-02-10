@@ -51,5 +51,9 @@
     "name" : "RELATIONSHIPS_BATCH_SIZE",
     "value" : "1000",
     "description" : "The batch size to load relationships with"
+  }, {
+    "name" : "ONLY_LAYOUT",
+    "value" : "N",
+    "description" : "Set this to value Y if you want to only determine the layout and postpone data loading"
   } ]
 }
