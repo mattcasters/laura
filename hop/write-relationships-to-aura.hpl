@@ -128,6 +128,11 @@
       <to>write-file-to-aura-template.hpl</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>createRels</from>
+      <to>write-file-to-aura-template.hpl</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <transform>
     <name>Input</name>
@@ -238,6 +243,37 @@ if (name.startsWith(toPrefix)) {
     <GUI>
       <xloc>160</xloc>
       <yloc>272</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>createRels</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>createRels</name>
+        <variable>${CREATE_RELATIONSHIPS}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>784</xloc>
+      <yloc>448</yloc>
     </GUI>
   </transform>
   <transform>
@@ -841,6 +877,13 @@ if (name.startsWith(toPrefix)) {
         <target_detail>Y</target_detail>
         <source_transform>properties</source_transform>
         <source_field>name</source_field>
+      </mapping>
+      <mapping>
+        <target_transform_name>OUTPUT</target_transform_name>
+        <target_attribute_key>ONLY_CREATE_RELATIONSHIPS</target_attribute_key>
+        <target_detail>N</target_detail>
+        <source_transform>createRels</source_transform>
+        <source_field>createRels</source_field>
       </mapping>
       <mapping>
         <target_transform_name>INPUT</target_transform_name>

@@ -11,12 +11,12 @@
     <parameters>
       <parameter>
         <name>DELIMITER</name>
-        <default_value>;</default_value>
+        <default_value>,</default_value>
         <description>The delimiter</description>
       </parameter>
       <parameter>
         <name>FILENAME</name>
-        <default_value>${PROJECT_NAME}/input/customers.csv</default_value>
+        <default_value>/home/matt/parking/bigger/nodes/ToplevelAgreement-id.csv</default_value>
         <description>The filename to analyze</description>
       </parameter>
     </parameters>
@@ -34,11 +34,6 @@
   </notepads>
   <order>
     <hop>
-      <from>CSV file input</from>
-      <to>evaluate values</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>evaluate values</from>
       <to>get result rows</to>
       <enabled>Y</enabled>
@@ -48,10 +43,15 @@
       <to>select result fields</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>${FILENAME}</from>
+      <to>evaluate values</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <transform>
-    <name>CSV file input</name>
-    <type>CSVInput</type>
+    <name>${FILENAME}</name>
+    <type>TextFileInput2</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -60,24 +60,119 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>${FILENAME}</filename>
-    <filename_field/>
-    <rownum_field/>
-    <include_filename>N</include_filename>
+    <accept_filenames>N</accept_filenames>
+    <passing_through_fields>N</passing_through_fields>
+    <accept_field/>
+    <accept_transform_name/>
     <separator>${DELIMITER}</separator>
     <enclosure/>
-    <header>Y</header>
-    <buffer_size>50000</buffer_size>
-    <lazy_conversion>N</lazy_conversion>
-    <add_filename_result>N</add_filename_result>
-    <parallel>N</parallel>
-    <newline_possible>N</newline_possible>
+    <enclosure_breaks>N</enclosure_breaks>
+    <escapechar/>
+    <header>N</header>
+    <nr_headerlines>1</nr_headerlines>
+    <footer>N</footer>
+    <nr_footerlines>1</nr_footerlines>
+    <line_wrapped>N</line_wrapped>
+    <nr_wraps>1</nr_wraps>
+    <layout_paged>N</layout_paged>
+    <nr_lines_per_page>80</nr_lines_per_page>
+    <nr_lines_doc_header>0</nr_lines_doc_header>
+    <noempty>Y</noempty>
+    <include>N</include>
+    <include_field/>
+    <rownum>N</rownum>
+    <rownumByFile>N</rownumByFile>
+    <rownum_field>nr</rownum_field>
+    <format>mixed</format>
     <encoding/>
+    <length>Characters</length>
+    <add_to_result_filenames>Y</add_to_result_filenames>
+    <file>
+      <name>${FILENAME}</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+      <type>CSV</type>
+      <compression>None</compression>
+    </file>
+    <filters>
+    </filters>
     <fields>
+      <field>
+        <name>external_reference</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <ifnull/>
+        <position>-1</position>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>start_date</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <ifnull/>
+        <position>-1</position>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>id</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <ifnull/>
+        <position>-1</position>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
     </fields>
+    <limit>5000</limit>
+    <error_ignored>N</error_ignored>
+    <skip_bad_files>N</skip_bad_files>
+    <file_error_field/>
+    <file_error_message_field/>
+    <error_line_skipped>N</error_line_skipped>
+    <error_count_field/>
+    <error_fields_field/>
+    <error_text_field/>
+    <bad_line_files_destination_directory/>
+    <bad_line_files_extension>warning</bad_line_files_extension>
+    <error_line_files_destination_directory/>
+    <error_line_files_extension>error</error_line_files_extension>
+    <line_number_files_destination_directory/>
+    <line_number_files_extension>line</line_number_files_extension>
+    <date_format_lenient>Y</date_format_lenient>
+    <date_format_locale>utf-8</date_format_locale>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
     <attributes/>
     <GUI>
-      <xloc>176</xloc>
+      <xloc>160</xloc>
       <yloc>112</yloc>
     </GUI>
   </transform>
@@ -214,7 +309,7 @@ if (evaluators==null) {
     </fields>
     <attributes/>
     <GUI>
-      <xloc>320</xloc>
+      <xloc>304</xloc>
       <yloc>112</yloc>
     </GUI>
   </transform>
@@ -250,7 +345,7 @@ if (evaluators==null) {
     </compare>
     <attributes/>
     <GUI>
-      <xloc>480</xloc>
+      <xloc>464</xloc>
       <yloc>112</yloc>
     </GUI>
   </transform>
@@ -291,7 +386,7 @@ if (evaluators==null) {
     </fields>
     <attributes/>
     <GUI>
-      <xloc>656</xloc>
+      <xloc>640</xloc>
       <yloc>112</yloc>
     </GUI>
   </transform>

@@ -11,12 +11,12 @@
     <parameters>
       <parameter>
         <name>FILENAME</name>
-        <default_value>${PROJECT_HOME}/input/customers.csv</default_value>
+        <default_value>/home/matt/parking/bigger/nodes/ToplevelAgreement-id.csv</default_value>
         <description>The filename to analyze</description>
       </parameter>
       <parameter>
         <name>LAYOUT_FILE</name>
-        <default_value>${PROJECT_HOME}/tmp/Customers-layout.xml</default_value>
+        <default_value>${PROJECT_HOME}/tmp/ToplevelAgreement-layout.xml</default_value>
         <description>The resulting layout file</description>
       </parameter>
       <parameter>
@@ -60,11 +60,6 @@ enclosures in header</note>
   </notepads>
   <order>
     <hop>
-      <from>read lines from file</from>
-      <to>First row only</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>pick field</from>
       <to>Add constants</to>
       <enabled>Y</enabled>
@@ -77,11 +72,6 @@ enclosures in header</note>
     <hop>
       <from>Template: Metadata detector - Parser.hpl</from>
       <to>Patch result fields design time</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>filename</from>
-      <to>Template: Metadata detector - Parser.hpl</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -125,6 +115,11 @@ enclosures in header</note>
       <enabled>Y</enabled>
     </hop>
     <hop>
+      <from>${FILENAME}</from>
+      <to>First row only</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
       <from>First row only</from>
       <to>remove "</to>
       <enabled>Y</enabled>
@@ -135,6 +130,103 @@ enclosures in header</note>
       <enabled>Y</enabled>
     </hop>
   </order>
+  <transform>
+    <name>${FILENAME}</name>
+    <type>TextFileInput2</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <accept_filenames>N</accept_filenames>
+    <passing_through_fields>N</passing_through_fields>
+    <accept_field/>
+    <accept_transform_name/>
+    <separator>[@/=</separator>
+    <enclosure/>
+    <enclosure_breaks>N</enclosure_breaks>
+    <escapechar/>
+    <header>N</header>
+    <nr_headerlines>1</nr_headerlines>
+    <footer>N</footer>
+    <nr_footerlines>1</nr_footerlines>
+    <line_wrapped>N</line_wrapped>
+    <nr_wraps>1</nr_wraps>
+    <layout_paged>N</layout_paged>
+    <nr_lines_per_page>80</nr_lines_per_page>
+    <nr_lines_doc_header>0</nr_lines_doc_header>
+    <noempty>Y</noempty>
+    <include>N</include>
+    <include_field/>
+    <rownum>Y</rownum>
+    <rownumByFile>N</rownumByFile>
+    <rownum_field>nr</rownum_field>
+    <format>mixed</format>
+    <encoding/>
+    <length>Characters</length>
+    <add_to_result_filenames>Y</add_to_result_filenames>
+    <file>
+      <name>${FILENAME}</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+      <type>CSV</type>
+      <compression>None</compression>
+    </file>
+    <filters>
+    </filters>
+    <fields>
+      <field>
+        <name>line</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <ifnull/>
+        <position>-1</position>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+    </fields>
+    <limit>5000</limit>
+    <error_ignored>N</error_ignored>
+    <skip_bad_files>N</skip_bad_files>
+    <file_error_field/>
+    <file_error_message_field/>
+    <error_line_skipped>N</error_line_skipped>
+    <error_count_field/>
+    <error_fields_field/>
+    <error_text_field/>
+    <bad_line_files_destination_directory/>
+    <bad_line_files_extension>warning</bad_line_files_extension>
+    <error_line_files_destination_directory/>
+    <error_line_files_extension>error</error_line_files_extension>
+    <line_number_files_destination_directory/>
+    <line_number_files_extension>line</line_number_files_extension>
+    <date_format_lenient>Y</date_format_lenient>
+    <date_format_locale>utf-8</date_format_locale>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
+    <attributes/>
+    <GUI>
+      <xloc>80</xloc>
+      <yloc>64</yloc>
+    </GUI>
+  </transform>
   <transform>
     <name>Add constants</name>
     <type>Constant</type>
@@ -325,25 +417,18 @@ enclosures in header</note>
     <stream_target_transform/>
     <mappings>
       <mapping>
-        <target_transform_name>CSV file input</target_transform_name>
-        <target_attribute_key>FILENAME</target_attribute_key>
-        <target_detail>N</target_detail>
-        <source_transform>filename</source_transform>
-        <source_field>filename</source_field>
+        <target_transform_name>${FILENAME}</target_transform_name>
+        <target_attribute_key>FIELD_NAME</target_attribute_key>
+        <target_detail>Y</target_detail>
+        <source_transform>Add constants</source_transform>
+        <source_field>field</source_field>
       </mapping>
       <mapping>
-        <target_transform_name>CSV file input</target_transform_name>
+        <target_transform_name>${FILENAME}</target_transform_name>
         <target_attribute_key>FIELD_TYPE</target_attribute_key>
         <target_detail>Y</target_detail>
         <source_transform>Add constants</source_transform>
         <source_field>type</source_field>
-      </mapping>
-      <mapping>
-        <target_transform_name>CSV file input</target_transform_name>
-        <target_attribute_key>INPUT_NAME</target_attribute_key>
-        <target_detail>Y</target_detail>
-        <source_transform>Add constants</source_transform>
-        <source_field>field</source_field>
       </mapping>
     </mappings>
     <attributes/>
@@ -377,37 +462,6 @@ enclosures in header</note>
     <GUI>
       <xloc>592</xloc>
       <yloc>400</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>filename</name>
-    <type>GetVariable</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>filename</name>
-        <variable>${FILENAME}</variable>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>438</xloc>
-      <yloc>241</yloc>
     </GUI>
   </transform>
   <transform>
@@ -779,49 +833,6 @@ if (fieldType.equals("BigNumber")) {
     <GUI>
       <xloc>880</xloc>
       <yloc>400</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>read lines from file</name>
-    <type>CSVInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <filename>${FILENAME}</filename>
-    <filename_field/>
-    <rownum_field>nr</rownum_field>
-    <include_filename>N</include_filename>
-    <separator>[@/=</separator>
-    <enclosure>"</enclosure>
-    <header>N</header>
-    <buffer_size>50000</buffer_size>
-    <lazy_conversion>N</lazy_conversion>
-    <add_filename_result>N</add_filename_result>
-    <parallel>N</parallel>
-    <newline_possible>N</newline_possible>
-    <encoding/>
-    <fields>
-      <field>
-        <name>line</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>80</xloc>
-      <yloc>64</yloc>
     </GUI>
   </transform>
   <transform>

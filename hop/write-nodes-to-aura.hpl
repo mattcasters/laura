@@ -68,6 +68,11 @@
       <to>NeoFields</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>createNodes</from>
+      <to>write-nodes-to-aura-template.hpl</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <transform>
     <name>NeoFields</name>
@@ -378,6 +383,13 @@
         <source_field>precision</source_field>
       </mapping>
       <mapping>
+        <target_transform_name>Neo4J Output</target_transform_name>
+        <target_attribute_key>USE_CREATE</target_attribute_key>
+        <target_detail>N</target_detail>
+        <source_transform>createNodes</source_transform>
+        <source_field>createNodes</source_field>
+      </mapping>
+      <mapping>
         <target_transform_name>INPUT</target_transform_name>
         <target_attribute_key>INPUT_FORMAT</target_attribute_key>
         <target_detail>Y</target_detail>
@@ -466,6 +478,37 @@
     <GUI>
       <xloc>448</xloc>
       <yloc>208</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>createNodes</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>createNodes</name>
+        <variable>${CREATE_NODES}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>263</xloc>
+      <yloc>416</yloc>
     </GUI>
   </transform>
   <transform_error_handling>

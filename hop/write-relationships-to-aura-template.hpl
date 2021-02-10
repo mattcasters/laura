@@ -113,7 +113,7 @@
       <schema_name/>
     </partitioning>
     <connection>Aura</connection>
-    <batch_size>1000</batch_size>
+    <batch_size>${RELATIONSHIPS_BATCH_SIZE}</batch_size>
     <key/>
     <create_indexes>N</create_indexes>
     <use_create>N</use_create>

@@ -13,7 +13,7 @@
   <parameters>
     <parameter>
       <name>INPUT_FOLDER</name>
-      <default_value>${PROJECT_HOME}/input/</default_value>
+      <default_value>${PROJECT_HOME}/input</default_value>
       <description>The input folder</description>
     </parameter>
   </parameters>
@@ -59,10 +59,15 @@
       <run_configuration>local</run_configuration>
       <parameters>
         <pass_all_parameters>Y</pass_all_parameters>
+        <parameter>
+          <name>INPUT_FOLDER</name>
+          <stream_name/>
+          <value>${INPUT_FOLDER}</value>
+        </parameter>
       </parameters>
       <parallel>N</parallel>
       <xloc>272</xloc>
-      <yloc>208</yloc>
+      <yloc>288</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -88,10 +93,15 @@
       <run_configuration>local</run_configuration>
       <parameters>
         <pass_all_parameters>Y</pass_all_parameters>
+        <parameter>
+          <name>INPUT_FOLDER</name>
+          <stream_name/>
+          <value>${INPUT_FOLDER}</value>
+        </parameter>
       </parameters>
       <parallel>N</parallel>
       <xloc>448</xloc>
-      <yloc>208</yloc>
+      <yloc>288</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -104,7 +114,7 @@
       <logsubject>Success</logsubject>
       <parallel>N</parallel>
       <xloc>784</xloc>
-      <yloc>208</yloc>
+      <yloc>288</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -133,7 +143,7 @@
       </parameters>
       <parallel>N</parallel>
       <xloc>624</xloc>
-      <yloc>208</yloc>
+      <yloc>288</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -162,6 +172,27 @@
       <parallel>N</parallel>
       <xloc>400</xloc>
       <yloc>96</yloc>
+      <attributes_hac/>
+    </action>
+    <action>
+      <name>Log config</name>
+      <description/>
+      <type>WRITE_TO_LOG</type>
+      <attributes/>
+      <logmessage>
+Reading from: ${INPUT_FOLDER}
+Creating nodes? ${CREATE_NODES}
+Loading node files ${PARALLEL_NODES_FILES} at a time.
+Loading nodes in ${PARALLEL_NODES} parallel threads.
+Loading nodes with a batch size of ${NODES_BATCH_SIZE}.
+Creating relationships? ${CREATE_RELATIONSHIPS}
+Loading relationships with a batch size of ${RELATIONSHIPS_BATCH_SIZE}
+</logmessage>
+      <loglevel>Minimal</loglevel>
+      <logsubject>Config:</logsubject>
+      <parallel>N</parallel>
+      <xloc>272</xloc>
+      <yloc>192</yloc>
       <attributes_hac/>
     </action>
   </actions>
@@ -203,6 +234,13 @@
     </hop>
     <hop>
       <from>Check Aura</from>
+      <to>Log config</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Log config</from>
       <to>load-all-nodes-files.hpl</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>

@@ -1,5 +1,9 @@
 {
   "variables" : [ {
+    "name" : "INPUT_FOLDER",
+    "value" : "input/",
+    "description" : "This folder is contains the input data in 2 sub-folders: nodes/ and relationships/"
+  }, {
     "name" : "AURA_HOSTNAME",
     "value" : "localhost",
     "description" : "The Aura hostname"
@@ -24,8 +28,28 @@
     "value" : "false",
     "description" : "Encrypt the connection to Aura"
   }, {
-    "name" : "INPUT_FOLDER",
-    "value" : "${PROJECT_HOME}/input/",
-    "description" : "The input folder containing the data in nodes/ and relationships/ subfolders"
+    "name" : "PARALLEL_NODES_FILES",
+    "value" : "1",
+    "description" : "The number of nodes files to load in parallel"
+  }, {
+    "name" : "PARALLEL_NODES",
+    "value" : "2",
+    "description" : "The number of parallel thread to load nodes with"
+  }, {
+    "name" : "NODES_BATCH_SIZE",
+    "value" : "5000",
+    "description" : "The batch size to load nodes with"
+  }, {
+    "name" : "CREATE_NODES",
+    "value" : "Y",
+    "description" : "N=Merge the data into the graph, Y=Create nodes"
+  }, {
+    "name" : "CREATE_RELATIONSHIPS",
+    "value" : "Y",
+    "description" : "N=Merge the relationships into the graph, Y=Create relationships"
+  }, {
+    "name" : "RELATIONSHIPS_BATCH_SIZE",
+    "value" : "5000",
+    "description" : "The batch size to load relationships with"
   } ]
 }

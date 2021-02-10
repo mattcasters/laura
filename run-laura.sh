@@ -1,22 +1,12 @@
 
-if [ "$HOP_LOCATION" = "" ]
-then
-  HOP_LOCATION="$1"
-fi
-  
-if [ "$HOP_LOCATION" = "" ]
-then
-  HOP_LOCATION=/opt/hop/
-fi
-
-if [ ! -d "$HOP_LOCATION" ]
+HOP_LOCATION="$1"
+if [ "$HOP_LOCATION" = "" ] || [ ! -d "$HOP_LOCATION" ]
 then
   echo
-  echo "Please specify the folder where Hop is located."
-  echo "You can do this by setting variable HOP_LOCATION"
-  echo "Or by giving it to this script as the first argument:"
+  echo "Please specify the folder where Hop is located ."
+  echo "You can do this by giving it to this script as the first argument:"
   echo
-  echo "  run-laura.sh /path/to/hop"
+  echo "  run-laura.sh /path/to/hop input/folder/"
   echo
   echo "You can download a recent Hop snapshot here:  "
   echo
@@ -28,6 +18,8 @@ then
   echo
   exit 1
 fi
+
+
 
 if [ ! -f "laura-conf.json" ]
 then
@@ -41,8 +33,8 @@ then
   exit 2;
 fi
 
-
 PWD=$(pwd)
+
 HOP_OPTIONS=-Xmx512m
 HOP_CONFIG_FOLDER=${PWD}/config
 HOP_AUDIT_FOLDER=${PWD}/audit

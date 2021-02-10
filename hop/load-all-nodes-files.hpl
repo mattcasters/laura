@@ -87,7 +87,7 @@
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
-    <copies>1</copies>
+    <copies>${PARALLEL_NODES_FILES}</copies>
     <partitioning>
       <method>none</method>
       <schema_name/>
@@ -145,7 +145,7 @@
     <result_files_file_name_field>FileName</result_files_file_name_field>
     <attributes/>
     <GUI>
-      <xloc>416</xloc>
+      <xloc>480</xloc>
       <yloc>64</yloc>
     </GUI>
   </transform>
