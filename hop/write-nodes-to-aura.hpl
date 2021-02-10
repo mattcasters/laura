@@ -10,6 +10,11 @@
     <pipeline_status>0</pipeline_status>
     <parameters>
       <parameter>
+        <name>BASE_FILE</name>
+        <default_value>${PROJECT_HOME}/input/nodes/Movie-title</default_value>
+        <description>The layout file in JSON</description>
+      </parameter>
+      <parameter>
         <name>DELIMITER</name>
         <default_value>,</default_value>
         <description>The delimiter</description>
@@ -18,11 +23,6 @@
         <name>FILENAME</name>
         <default_value>${PROJECT_HOME}/input/nodes/Movie-title.csv</default_value>
         <description>The filename to analyze</description>
-      </parameter>
-      <parameter>
-        <name>LAYOUT_FILE</name>
-        <default_value>${PROJECT_HOME}/tmp/Movie-layout.xml</default_value>
-        <description>The resulting layout file</description>
       </parameter>
       <parameter>
         <name>NODE_LABEL</name>
@@ -44,11 +44,6 @@
   </notepads>
   <order>
     <hop>
-      <from>layout.xml</from>
-      <to>write-nodes-to-aura-template.hpl</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>NeoFields</from>
       <to>write-nodes-to-aura-template.hpl</to>
       <enabled>Y</enabled>
@@ -64,16 +59,200 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>layout.xml</from>
-      <to>NeoFields</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>createNodes</from>
       <to>write-nodes-to-aura-template.hpl</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>.js layout file</from>
+      <to>NeoFields</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>.js layout file</from>
+      <to>write-nodes-to-aura-template.hpl</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
+  <transform>
+    <name>.js layout file</name>
+    <type>JsonInput</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <include>N</include>
+    <include_field/>
+    <rownum>N</rownum>
+    <addresultfile>N</addresultfile>
+    <readurl>N</readurl>
+    <removeSourceField>N</removeSourceField>
+    <IsIgnoreEmptyFile>N</IsIgnoreEmptyFile>
+    <doNotFailIfNoFile>Y</doNotFailIfNoFile>
+    <ignoreMissingPath>Y</ignoreMissingPath>
+    <defaultPathLeafToNull>Y</defaultPathLeafToNull>
+    <rownum_field/>
+    <file>
+      <name>${BASE_FILE}.js</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
+    <fields>
+      <field>
+        <name>name</name>
+        <path>$.fields.*.name</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>type</name>
+        <path>$.fields.*.type</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>length</name>
+        <path>$.fields.*.length</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>precision</name>
+        <path>$.fields.*.precision</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>mask</name>
+        <path>$.fields.*.mask</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>decimal</name>
+        <path>$.fields.*.decimal</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>group</name>
+        <path>$.fields.*.group</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>primary</name>
+        <path>$.fields.*.primary</path>
+        <type>Boolean</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>propertyType</name>
+        <path>$.fields.*.propertyType</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>propertyName</name>
+        <path>$.fields.*.propertyName</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+    </fields>
+    <limit>0</limit>
+    <IsInFields>N</IsInFields>
+    <IsAFile>N</IsAFile>
+    <valueField/>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
+    <attributes/>
+    <GUI>
+      <xloc>160</xloc>
+      <yloc>256</yloc>
+    </GUI>
+  </transform>
   <transform>
     <name>NeoFields</name>
     <type>Dummy</type>
@@ -87,8 +266,39 @@
     </partitioning>
     <attributes/>
     <GUI>
-      <xloc>256</xloc>
-      <yloc>320</yloc>
+      <xloc>160</xloc>
+      <yloc>368</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>createNodes</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>createNodes</name>
+        <variable>${CREATE_NODES}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>160</xloc>
+      <yloc>448</yloc>
     </GUI>
   </transform>
   <transform>
@@ -154,209 +364,6 @@
     </GUI>
   </transform>
   <transform>
-    <name>layout.xml</name>
-    <type>getXMLData</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <include>N</include>
-    <include_field/>
-    <rownum>N</rownum>
-    <addresultfile>N</addresultfile>
-    <namespaceaware>N</namespaceaware>
-    <ignorecomments>N</ignorecomments>
-    <readurl>N</readurl>
-    <validating>N</validating>
-    <usetoken>N</usetoken>
-    <IsIgnoreEmptyFile>N</IsIgnoreEmptyFile>
-    <doNotFailIfNoFile>Y</doNotFailIfNoFile>
-    <rownum_field/>
-    <encoding>UTF-8</encoding>
-    <file>
-      <name>${LAYOUT_FILE}</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-    </file>
-    <fields>
-      <field>
-        <name>name</name>
-        <xpath>name</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>type</name>
-        <xpath>type</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>length</name>
-        <xpath>length</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>precision</name>
-        <xpath>precision</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>mask</name>
-        <xpath>mask</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>decimal</name>
-        <xpath>decimal</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>group</name>
-        <xpath>group</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>primary</name>
-        <xpath>primary</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>Boolean</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>propertyType</name>
-        <xpath>propertyType</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>propertyName</name>
-        <xpath>propertyName</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-    </fields>
-    <limit>0</limit>
-    <loopxpath>/fields/field</loopxpath>
-    <IsInFields>N</IsInFields>
-    <IsAFile>N</IsAFile>
-    <XmlField/>
-    <prunePath/>
-    <shortFileFieldName/>
-    <pathFieldName/>
-    <hiddenFieldName/>
-    <lastModificationTimeFieldName/>
-    <uriNameFieldName/>
-    <rootUriNameFieldName/>
-    <extensionFieldName/>
-    <sizeFieldName/>
-    <attributes/>
-    <GUI>
-      <xloc>160</xloc>
-      <yloc>256</yloc>
-    </GUI>
-  </transform>
-  <transform>
     <name>write-nodes-to-aura-template.hpl</name>
     <type>MetaInject</type>
     <description/>
@@ -379,7 +386,7 @@
         <target_transform_name>INPUT</target_transform_name>
         <target_attribute_key>INPUT_PRECISION</target_attribute_key>
         <target_detail>Y</target_detail>
-        <source_transform>layout.xml</source_transform>
+        <source_transform>.js layout file</source_transform>
         <source_field>precision</source_field>
       </mapping>
       <mapping>
@@ -393,7 +400,7 @@
         <target_transform_name>INPUT</target_transform_name>
         <target_attribute_key>INPUT_FORMAT</target_attribute_key>
         <target_detail>Y</target_detail>
-        <source_transform>layout.xml</source_transform>
+        <source_transform>.js layout file</source_transform>
         <source_field>mask</source_field>
       </mapping>
       <mapping>
@@ -407,7 +414,7 @@
         <target_transform_name>INPUT</target_transform_name>
         <target_attribute_key>INPUT_DECIMAL</target_attribute_key>
         <target_detail>Y</target_detail>
-        <source_transform>layout.xml</source_transform>
+        <source_transform>.js layout file</source_transform>
         <source_field>decimal</source_field>
       </mapping>
       <mapping>
@@ -428,21 +435,21 @@
         <target_transform_name>INPUT</target_transform_name>
         <target_attribute_key>INPUT_LENGTH</target_attribute_key>
         <target_detail>Y</target_detail>
-        <source_transform>layout.xml</source_transform>
+        <source_transform>.js layout file</source_transform>
         <source_field>length</source_field>
       </mapping>
       <mapping>
         <target_transform_name>INPUT</target_transform_name>
         <target_attribute_key>INPUT_NAME</target_attribute_key>
         <target_detail>Y</target_detail>
-        <source_transform>layout.xml</source_transform>
+        <source_transform>.js layout file</source_transform>
         <source_field>name</source_field>
       </mapping>
       <mapping>
         <target_transform_name>INPUT</target_transform_name>
         <target_attribute_key>FIELD_TYPE</target_attribute_key>
         <target_detail>Y</target_detail>
-        <source_transform>layout.xml</source_transform>
+        <source_transform>.js layout file</source_transform>
         <source_field>type</source_field>
       </mapping>
       <mapping>
@@ -463,7 +470,7 @@
         <target_transform_name>INPUT</target_transform_name>
         <target_attribute_key>INPUT_GROUP</target_attribute_key>
         <target_detail>Y</target_detail>
-        <source_transform>layout.xml</source_transform>
+        <source_transform>.js layout file</source_transform>
         <source_field>group</source_field>
       </mapping>
       <mapping>
@@ -478,37 +485,6 @@
     <GUI>
       <xloc>448</xloc>
       <yloc>208</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>createNodes</name>
-    <type>GetVariable</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>createNodes</name>
-        <variable>${CREATE_NODES}</variable>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>263</xloc>
-      <yloc>416</yloc>
     </GUI>
   </transform>
   <transform_error_handling>

@@ -109,8 +109,8 @@
         <input/>
       </variablemapping>
       <variablemapping>
-        <variable>LAYOUT_FILE</variable>
-        <field>layoutFile</field>
+        <variable>BASE_FILE</variable>
+        <field>baseFile</field>
         <input/>
       </variablemapping>
       <variablemapping>
@@ -179,7 +179,8 @@ var pkField = substr(nodeLabel, firstDashIndex+1);
 nodeLabel = initCap(substr(nodeLabel, 0, firstDashIndex));
 
 var delimiterFile = getVariable("PROJECT_HOME", ".")+"/tmp/" + nodeLabel + "-delimiter.xml";
-var layoutFile = getVariable("PROJECT_HOME", ".")+"/tmp/" + nodeLabel + "-layout.xml";
+var baseFile = replace(filename, ".csv", "");
+baseFile = replace(baseFile, ".CSV", "");
 </jsScript_script>
       </jsScript>
     </jsScripts>
@@ -201,16 +202,16 @@ var layoutFile = getVariable("PROJECT_HOME", ".")+"/tmp/" + nodeLabel + "-layout
         <replace>N</replace>
       </field>
       <field>
-        <name>layoutFile</name>
-        <rename>layoutFile</rename>
+        <name>pkField</name>
+        <rename>pkField</rename>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>N</replace>
       </field>
       <field>
-        <name>pkField</name>
-        <rename>pkField</rename>
+        <name>baseFile</name>
+        <rename>baseFile</rename>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
@@ -219,7 +220,7 @@ var layoutFile = getVariable("PROJECT_HOME", ".")+"/tmp/" + nodeLabel + "-layout
     </fields>
     <attributes/>
     <GUI>
-      <xloc>224</xloc>
+      <xloc>240</xloc>
       <yloc>64</yloc>
     </GUI>
   </transform>

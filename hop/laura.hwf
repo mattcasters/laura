@@ -27,8 +27,8 @@
       <weekDay>1</weekDay>
       <DayOfMonth>1</DayOfMonth>
       <parallel>N</parallel>
-      <xloc>128</xloc>
-      <yloc>96</yloc>
+      <xloc>96</xloc>
+      <yloc>48</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -61,8 +61,8 @@
         </parameter>
       </parameters>
       <parallel>N</parallel>
-      <xloc>272</xloc>
-      <yloc>288</yloc>
+      <xloc>240</xloc>
+      <yloc>240</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -95,8 +95,8 @@
         </parameter>
       </parameters>
       <parallel>N</parallel>
-      <xloc>448</xloc>
-      <yloc>288</yloc>
+      <xloc>416</xloc>
+      <yloc>240</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -108,8 +108,8 @@
       <loglevel>Minimal</loglevel>
       <logsubject>Success</logsubject>
       <parallel>N</parallel>
-      <xloc>784</xloc>
-      <yloc>288</yloc>
+      <xloc>752</xloc>
+      <yloc>240</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -137,8 +137,8 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>624</xloc>
-      <yloc>288</yloc>
+      <xloc>592</xloc>
+      <yloc>240</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -152,8 +152,8 @@
       <timeout>3000</timeout>
       <pingtype>classicPing</pingtype>
       <parallel>N</parallel>
-      <xloc>272</xloc>
-      <yloc>96</yloc>
+      <xloc>240</xloc>
+      <yloc>48</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -165,8 +165,8 @@
         <connection>Aura</connection>
       </connections>
       <parallel>N</parallel>
-      <xloc>400</xloc>
-      <yloc>96</yloc>
+      <xloc>368</xloc>
+      <yloc>48</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -186,8 +186,26 @@ Loading relationships with a batch size of ${RELATIONSHIPS_BATCH_SIZE}
       <loglevel>Minimal</loglevel>
       <logsubject>Config:</logsubject>
       <parallel>N</parallel>
-      <xloc>272</xloc>
-      <yloc>192</yloc>
+      <xloc>240</xloc>
+      <yloc>144</yloc>
+      <attributes_hac/>
+    </action>
+    <action>
+      <name>Delete count files</name>
+      <description/>
+      <type>DELETE_FILES</type>
+      <attributes/>
+      <arg_from_previous>N</arg_from_previous>
+      <include_subfolders>N</include_subfolders>
+      <fields>
+        <field>
+          <name>${PROJECT_HOME}/tmp/</name>
+          <filemask>.*\-count.csv</filemask>
+        </field>
+      </fields>
+      <parallel>N</parallel>
+      <xloc>416</xloc>
+      <yloc>144</yloc>
       <attributes_hac/>
     </action>
   </actions>
@@ -236,6 +254,13 @@ Loading relationships with a batch size of ${RELATIONSHIPS_BATCH_SIZE}
     </hop>
     <hop>
       <from>Log config</from>
+      <to>Delete count files</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Delete count files</from>
       <to>load-all-nodes-files.hpl</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>

@@ -23,11 +23,6 @@
   </notepads>
   <order>
     <hop>
-      <from>Get count filenames</from>
-      <to>read counts</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>read counts</from>
       <to>label</to>
       <enabled>Y</enabled>
@@ -35,6 +30,11 @@
     <hop>
       <from>label</from>
       <to>log-label-stats.hwf</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Get count filenames</from>
+      <to>read counts</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -72,6 +72,56 @@
     <attributes/>
     <GUI>
       <xloc>144</xloc>
+      <yloc>96</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>label</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>
+      <jsScript>
+        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>
+var lastSlashIndex = filename.lastIndexOf("/");
+if (lastSlashIndex&lt;0) {
+  lastSlashIndex = filename.lastIndexOf("\\");
+}
+
+var shortName = substr(filename, lastSlashIndex+1 );
+
+var dashIndex = indexOf( shortName, "-" );
+
+if (dashIndex&lt;0) {
+  throw "Dash expected in count filename: "+shortName;
+}
+
+var label = substr(shortName, 0, dashIndex);
+</jsScript_script>
+      </jsScript>
+    </jsScripts>
+    <fields>
+      <field>
+        <name>label</name>
+        <rename>label</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>416</xloc>
       <yloc>96</yloc>
     </GUI>
   </transform>
@@ -129,56 +179,6 @@
     </GUI>
   </transform>
   <transform>
-    <name>label</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>
-      <jsScript>
-        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>
-var lastSlashIndex = filename.lastIndexOf("/");
-if (lastSlashIndex&lt;0) {
-  lastSlashIndex = filename.lastIndexOf("\\");
-}
-
-var shortName = substr(filename, lastSlashIndex+1 );
-
-var dashIndex = indexOf( shortName, "-" );
-
-if (dashIndex&lt;0) {
-  throw "Dash expected in count filename: "+shortName;
-}
-
-var label = substr(shortName, 0, dashIndex);
-</jsScript_script>
-      </jsScript>
-    </jsScripts>
-    <fields>
-      <field>
-        <name>label</name>
-        <rename>label</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>416</xloc>
-      <yloc>96</yloc>
-    </GUI>
-  </transform>
-  <transform>
     <name>read counts</name>
     <type>CSVInput</type>
     <description/>
@@ -197,7 +197,7 @@ var label = substr(shortName, 0, dashIndex);
     <enclosure>"</enclosure>
     <header>Y</header>
     <buffer_size>50000</buffer_size>
-    <lazy_conversion>Y</lazy_conversion>
+    <lazy_conversion>N</lazy_conversion>
     <add_filename_result>N</add_filename_result>
     <parallel>N</parallel>
     <newline_possible>N</newline_possible>

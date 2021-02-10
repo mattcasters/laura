@@ -3,4 +3,5 @@ laura-conf.json
 audit/*
 **/*.old
 tmp/**
+input/**/*.js
 
