@@ -27,11 +27,12 @@ As a standalone project Laura can be run simply by running the script:
   ```run-laura.bat <path-to-hop>``` : for windows variants
 
 As an argument you can specify the location of where you unzipped Hop with the Neo4j plugins folder hop-neo4j in the plugins/ folder somewhere.
-You can also set environment variable ```HOP_LOCATION``` to where your Hop distribution lives.
 
-Please make sure to create a laura-conf.json file.  The easiest way to do this is by copying file ```laura-conf.json.sample-aura```
+Please make sure to create a laura-conf.json file.  The easiest way to start with this is by copying file ```laura-conf.json.sample-aura```.
 To test your setup against a local Neo4j database you can also use sample file ```laura-conf.json.sample-local```
 Then modify the file to match your situation: The Aura hostname and password as well as the location of your files.
+All of the variables have descriptions in the sample files.
+Here are the most important variables to set:  
 
 * AURA_HOSTNAME : The hostname of your Aura instance <someid>-databases.neo4j.io
 * AURA_PASSWORD : The generated Aura password
