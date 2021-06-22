@@ -10,13 +10,13 @@ This repository contains an Apache Hop project that can be used to load CSV file
 
 # Apache Hop & Neo4j
 
-To run Laura you need a recent build of Hop.  You can find a recent *snapshot* download of Apache Hop over here:
+To run Laura you need a recent build of Hop.  You can find downloads of Apache Hop over here:
 
   http://hop.apache.org/download
 
-You also need the latest (>=6.0.13) version of the Neo4j plugins for Hop:
+Snapshot builds of Apache Hop can be found here:
 
-  https://github.com/mattcasters/hop-neo4j/releases/latest
+  https://repository.apache.org/content/repositories/snapshots/org/apache/hop/hop-client/
 
 # Running Laura
 
@@ -54,6 +54,5 @@ These will contain one file per (you guessed it) node label and relationship lab
 * The header in the file should be in the format: 
   - ```<NodeLabel>.<KeyField>``` if it's a key field
   - A field name without a dot (.) which will become a relationship property
-
 
 
